@@ -1,1 +1,4 @@
 # AutomOhjel
+
+-testi
+
