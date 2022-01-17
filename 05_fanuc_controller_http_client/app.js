@@ -19,11 +19,11 @@ app.get('/', (req, res, next) => {
 
 
 
-app.get("/robot/joint_values/", (req, joints, next) => {
-    axios.get('https://fanuc-robot-http-server.herokuapp.com/').then((res) => {
+app.get("/robot/joint_values/", (req, res, next) => {
+    axios.get('https://fanuc-robot-http-server.herokuapp.com/').then((robot_res) => {
         const regexp = 'Joint   [1-6]: *(-?.*)'; //[1-6]
          let joint_values = [];
-         let matches = res.data.matchAll(regexp);
+         let matches = robot_res.data.matchAll(regexp);
          let count = 0;
             for (const match of matches)
             {
@@ -32,7 +32,7 @@ app.get("/robot/joint_values/", (req, joints, next) => {
             const value = parseFloat(match[1]);
             joint_values.push(value);
             };
-        joints.send( {joint_values});
+        res.send( {joint_values});
         console.log({joint_values});
     });
 });
